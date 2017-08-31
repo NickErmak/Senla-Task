@@ -23,18 +23,15 @@ public class Task1 {
 			catch (InputMismatchException e) {
 			}
 		}
-			
-							
-			for (int i = 2; i<=n; i++) {
-				boolean prost = true;
-				
-				for (int ii=2; ii<i; ii++) {
-					if (i % ii==0) {prost=false; break;}
-					
-				}
-				if (prost) pw.println(i);
-			}
-			
+		pw.println("Простые числа до "+n+":");
+		for (int i = 2; i<=n; i++) {
+			boolean prost = true;
+			for (int ii=2; ii<i; ii++) 
+				if (i % ii==0) {
+					prost=false; 
+					break;
+				}				
+			if (prost) pw.println(i);
+		}			
 	}
-
 }

@@ -14,7 +14,5 @@ public class Task6 {
 		scanner.close();
 		String textNoNumbers = textOrig.replaceAll("\\d", "");
 		pw.println("Текст после редакции:\n"+textNoNumbers);
-
 	}
-
 }

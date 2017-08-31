@@ -25,10 +25,10 @@ public class Task2 {
 				}
 			catch (InputMismatchException e) {
 			}
-		}
-		
-		while (fib1<n) {
-			System.out.print(fib1+"\t");
+		}		
+		pw.println("Числа Фибоначчи до "+n+":");
+		while (fib1<=n) {
+			pw.println(fib1);
 			fib2=fib1+fib2;
 			fib1=fib2-fib1;		
 		}

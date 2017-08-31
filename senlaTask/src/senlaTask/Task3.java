@@ -101,7 +101,6 @@ public class Task3 {
 		
 		if (linesIntersect(ax1, ay1, bx1, by1, ax2, ay2, bx2, by2))
 		pw.println("отрезки пересекаются");
-		else pw.println("отрезки не пересекаются");
-		
+		else pw.println("отрезки не пересекаются");		
 	}
 }
