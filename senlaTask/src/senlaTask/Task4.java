@@ -3,38 +3,61 @@ package senlaTask;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * Recursive algorithm for calculating Greatest common divisor (GCD) 
+ * and Least common multiple (LCM) of two numbers
+ * @author      Ermak Nikita 
+ * @version     1.0                 
+ */
 public class Task4 {
 	
-	static int input(String message, Scanner scanner, PrintWriter pw) {
-			pw.println(message);
+	final static String INPUTMESSAGEFIRSTNUMBER = "Enter the first number";
+	final static String INPUTMESSAGESECONDNUMBER = "Enter the second number";
+	final static String RESULTMESSAGEGSD = "Greatest common divisor = ";
+	final static String RESULTMESSAGELCM = "Least common multiple = ";
+	
+	private PrintWriter printWriter;
+	private int firstNumber;
+	private int secondNumber;
+	
+	public Task4(){
+		printWriter = new PrintWriter(System.out, true);
+		firstNumber = getNumberFromConsole(INPUTMESSAGEFIRSTNUMBER);
+		secondNumber = getNumberFromConsole(INPUTMESSAGESECONDNUMBER);
+	}
+		
+	private int getNumberFromConsole(String inputMessage) {
+		Scanner scanner = new Scanner(System.in);
+		printWriter.println(inputMessage);
 		while (!scanner.hasNextInt()) {
 			scanner.next();
-			pw.println(message);			
-		}				
+			printWriter.println(inputMessage);			
+		}		
 		return scanner.nextInt();
 	}		
 		
-	 static int NOD (int i1, int i2) {	
-		for (int i=2; i<=i1&&i<=i2; i++) { 
-			if (i1%i==0&&i2%i==0) 
-				return i*NOD(i1/i, i2/i);				
+	private int getGCD (int firstNumber, int secondNumber) {	
+		for (int i=2; i<=firstNumber&&i<=secondNumber; i++) { 
+			if (firstNumber%i==0&&secondNumber%i==0) 
+				return i*getGCD(firstNumber/i, secondNumber/i);				
 			}
 		return 1;				
 	}
+	
+	private int getLCM (int firstNumber, int secondNumber) {		
+		return firstNumber/getGCD (firstNumber, secondNumber)*secondNumber;
+	}
 	 
+	private void showNodNok() {
+		 printWriter.print(RESULTMESSAGEGSD);
+		 printWriter.println(getGCD(firstNumber, secondNumber));
+		 printWriter.print(RESULTMESSAGELCM);
+		 printWriter.println(getLCM(firstNumber, secondNumber));
+	}
 	 
 	public static void main(String[] args) {
 		
-		PrintWriter pw = new PrintWriter(System.out, true);			
-		int i1, i2;
-		String mess1 = "Введите первое число";
-		String mess2 = "Введите второе число";
-				
-		Scanner scanner = new Scanner(System.in);
-		i1 = input(mess1, scanner, pw);
-		i2 = input(mess2, scanner, pw);
-		scanner.close();
-					
-		pw.println("НОД = "+NOD(i1, i2)+"\nНОК = "+ i1/NOD(i1,i2)*i2);		
+		Task4 task4 = new Task4();
+		task4.showNodNok();				
 	}
 }

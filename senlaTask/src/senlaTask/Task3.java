@@ -1,14 +1,27 @@
 package senlaTask;
 
-
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Scanner;
 
-
-
+/**
+ * Check two segments for intersection via coordinates
+ * @author      Ermak Nikita 
+ * @version     1.0                 
+ */
 public class Task3 {
+	
+	final static String INPUTMESSAGECOMMON = "Enter coordinates X and Y (via space) in the following order";
+	final static String INPUTMESSAGEORDER = "The first point of the first segment\n"
+			+ "The second point of the first segment\n"
+			+ "The first point of the second segment\n"
+			+ "The second point of the second segment";
+	final static String RESULTMESSAGEDOINTERSECT = "The following segments intersect";
+	final static String RESULTMESSAGENOTINTERSECT = "The following segments do not intersect";
 
-	public static boolean linesIntersect(double x1, double y1, double x2, double y2, 
+	final static PrintWriter PRINTWRITER = new PrintWriter(System.out, true);
+	
+	private static boolean linesIntersect(double x1, double y1, double x2, double y2, 
 			double x3, double y3, double x4, double y4){
 	      
 	      if (x1 == x2 && y1 == y2 ||
@@ -64,43 +77,33 @@ public class Task3 {
 	         return false;
 	      }
 	      return true;
-	   }
+	   }		
 	
-	static double input(String message, Scanner scanner, PrintWriter pw) {
-		pw.println(message);
-	while (!scanner.hasNextDouble()) {
-		scanner.next();
-		pw.println(message);			
-	}				
-	return scanner.nextDouble();
-}		
+	private static double[] getCoordinates() {
+		PRINTWRITER.println(INPUTMESSAGECOMMON);
+		PRINTWRITER.println(INPUTMESSAGEORDER);
+		
+		Scanner scanner = new Scanner(System.in);
+		String[] inputFromConsole=  scanner.nextLine().split("\\s+");		
+	    double[] coordinates =Arrays.stream(inputFromConsole).mapToDouble(Double::parseDouble).toArray();
+		scanner.close();
+		return coordinates;	
+		}		
+	
+	private static boolean checkIntersection(double [] coordinates) {
+		boolean doIntersect = linesIntersect(coordinates[0], coordinates[1], coordinates[2], coordinates[3], 
+				coordinates[4], coordinates[5], coordinates[6], coordinates[7]);
+		return doIntersect;		
+	}
+	
+	private static void showResult(boolean doIntersect) {
+		if (doIntersect)
+			PRINTWRITER.println(RESULTMESSAGEDOINTERSECT);
+			else PRINTWRITER.println(RESULTMESSAGENOTINTERSECT);		
+	}
 			
 	public static void main(String[] args) {
 		
-		PrintWriter pw = new PrintWriter(System.out, true);		
-		double ax1, ay1, bx1, by1, ax2, ay2, bx2, by2 ;
-		String mess111 = "Введите координату X первой точки первого отрезка";
-		String mess112 = "Введите координату Y первой точки первого отрезка";
-		String mess121 = "Введите координату X второй точки первого отрезка";
-		String mess122 = "Введите координату Y второй точки первого отрезка";
-		String mess211 = "Введите координату X первой точки второго отрезка";
-		String mess212 = "Введите координату Y первой точки второго отрезка";
-		String mess221 = "Введите координату X второй точки второго отрезка";
-		String mess222 = "Введите координату Y второй точки второго отрезка";
-		
-		Scanner scanner = new Scanner(System.in);
-		ax1 = input(mess111, scanner, pw);
-		ay1 = input(mess112, scanner, pw);
-		bx1 = input(mess121, scanner, pw);
-		by1 = input(mess122, scanner, pw);
-		ax2 = input(mess211, scanner, pw);
-		ay2 = input(mess212, scanner, pw);
-		bx2 = input(mess221, scanner, pw);
-		by2 = input(mess222, scanner, pw);
-		scanner.close();
-		
-		if (linesIntersect(ax1, ay1, bx1, by1, ax2, ay2, bx2, by2))
-		pw.println("отрезки пересекаются");
-		else pw.println("отрезки не пересекаются");		
+		showResult(checkIntersection(getCoordinates()));			
 	}
 }

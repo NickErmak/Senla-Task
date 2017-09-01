@@ -4,34 +4,54 @@ import java.io.PrintWriter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Calculating prime numbers from 1 to N
+ * @author      Ermak Nikita 
+ * @version     1.0                 
+ */
 public class Task1 {
+	
+	final static String INPUTMESSAGE = "Enter number N";
+	final static String RESULTMESSAGE = "Prime numbers up to ";
 	 	
-	public static void main(String[] args) {
-		
-		PrintWriter pw = new PrintWriter(System.out, true);	
-		boolean isTrue = false; 
-		int n=0;
-				
+	private int primeNumbersN;
+	private PrintWriter printWriter;
+	
+	public Task1(){
+		printWriter = new PrintWriter(System.out, true);
+	}
+	
+	public void getPrimeNumbers() {
+		boolean isTrue = false; 		
 		while (!isTrue) {
 			try {
-				pw.println("Введите число N");
+				printWriter.println(INPUTMESSAGE);
 				Scanner scanner = new Scanner(System.in);
-				n = scanner.nextInt();
+				primeNumbersN = scanner.nextInt();
 				scanner.close();
 				isTrue = true;
 				}
 			catch (InputMismatchException e) {
 			}
 		}
-		pw.println("Простые числа до "+n+":");
-		for (int i = 2; i<=n; i++) {
-			boolean prost = true;
+	}
+	public void showPrimeNumbers() {
+		printWriter.println(RESULTMESSAGE+primeNumbersN);
+		for (int i = 2; i<=primeNumbersN; i++) {
+			boolean isPrime = true;
 			for (int ii=2; ii<i; ii++) 
 				if (i % ii==0) {
-					prost=false; 
+					isPrime=false; 
 					break;
 				}				
-			if (prost) pw.println(i);
-		}			
+			if (isPrime) printWriter.println(i);
+		}	
+	}
+	
+	public static void main(String[] args) {
+		
+		Task1 task1 = new Task1();
+		task1.getPrimeNumbers();
+		task1.showPrimeNumbers();	
 	}
 }

@@ -4,33 +4,45 @@ import java.io.PrintWriter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Calculating Fibonacci numbers from 1 to N
+ * @author      Ermak Nikita 
+ * @version     1.0                 
+ */
 public class Task2 {
-
-	public static void main(String[] args) {
-		
-		PrintWriter pw = new PrintWriter(System.out, true);		
-		
-		int n=0;
-		int fib1=0;
-		int fib2=1;
-		boolean isTrue = false;		
 	
+	final static String INPUTMESSAGE = "Enter number N";
+	final static String RESULTMESSAGE = "Fibonacci numbers up to ";
+
+	private static PrintWriter printWriter = new PrintWriter(System.out, true);		
+	private static int getFibonacciNumberN() {
+		int FibonacciNumberN=-1;
+		boolean isTrue = false;		
 		while (!isTrue) {
 			try {
-				pw.println("Введите число N");
+				printWriter.println(INPUTMESSAGE);
 				Scanner scanner = new Scanner(System.in);
-				n = scanner.nextInt();
+				FibonacciNumberN = scanner.nextInt();
 				scanner.close();
 				isTrue = true;
 				}
 			catch (InputMismatchException e) {
 			}
-		}		
-		pw.println("Числа Фибоначчи до "+n+":");
-		while (fib1<=n) {
-			pw.println(fib1);
-			fib2=fib1+fib2;
-			fib1=fib2-fib1;		
+		}	
+		return FibonacciNumberN;
+	}
+	private static void showFibonacciNumbers(int FibonacciNumberN) {
+		int firstFibonacciNumber=0;
+		int secondFibonacciNumber=1;
+		printWriter.println(RESULTMESSAGE+FibonacciNumberN);
+		while (firstFibonacciNumber<=FibonacciNumberN) {
+			printWriter.println(firstFibonacciNumber);
+			secondFibonacciNumber=firstFibonacciNumber+secondFibonacciNumber;
+			firstFibonacciNumber=secondFibonacciNumber-firstFibonacciNumber;		
 		}
+	}
+	
+	public static void main(String[] args) {				
+		showFibonacciNumbers(getFibonacciNumberN());
 	}
 }
